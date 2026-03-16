@@ -7,7 +7,7 @@
 **Certifications:** CompTIA Security+ (2026)
 
 > 🚨 **NOTE:** This repository documents the architecture, deployment, and security hardening of a hybrid cloud enterprise IT environment.
-> ➡️ **To see how I actively manage, support, and troubleshoot this environment using Jira Service Management, view my [Enterprise Incident Management Repository](INSERT_YOUR_OTHER_REPO_LINK_HERE).**
+> ➡️ **To see how I actively manage, support, and troubleshoot this environment using Jira Service Management, view my [Enterprise Incident Management Repository](https://github.com/chingilik/enterprise-incident-management).**
 
 ## 🚀 Project Overview
 
