@@ -18,31 +18,20 @@ This repository serves as documented proof of my hands-on proficiency in Systems
 To ensure reliable communication and strict isolation, the environment was built on a dedicated `/16` NAT Network topology.
 
 * **Network Segment:** `10.0.0.0/16` (Subnet Mask: `255.255.0.0`)
-
 * **Default Gateway / Edge:** `10.0.0.1`
-
 * **Primary Domain Controller (YYC-DC-01):** `10.0.0.10` (Static)
-
 * **DHCP Scope (Client Endpoints):** `10.0.0.100` – `10.0.0.200`
-
 * **Internal Active Directory Forest:** `belita.com`
-
 * **Microsoft 365 / Entra Tenant:** `belitalab.onmicrosoft.com`
-
 * **Google Workspace Tenant:** `belita.online`
 
 ### 🛠️ Tech Stack & Tools
 
 * **Infrastructure:** Windows Server 2022, Windows 11 Pro, Oracle VirtualBox
-
 * **Identity & Cloud:** Active Directory (AD DS), Microsoft 365, Google Workspace, Microsoft Entra ID
-
 * **Endpoint Provisioning:** Microsoft Intune (MDM), WDS (PXE Boot)
-
 * **Network & Security:** DHCP, DNS, MX/SPF/DMARC, Group Policy (GPO), NTFS/RBAC
-
 * **Automation:** PowerShell (Bulk Provisioning)
-
 * **Data Governance:** SharePoint Online, OneDrive, Intune Settings Catalog
 
 ## 🏗️ 1. Infrastructure Implementation & Networking
@@ -50,7 +39,6 @@ To ensure reliable communication and strict isolation, the environment was built
 *Building the foundational server environment and establishing the domain.*
 
 * **VM Configuration:** Provisioned Windows Server 2022 with optimized resource allocation to host core infrastructure roles.
-
 * **Network Setup:** Configured a Static IP (`10.0.0.10`) for reliable DNS resolution and standardized the hostname (`YYC-DC-01`) to align with enterprise location-based naming conventions.
 
 ![Static IPv4 Assignment](screenshots/server-static-ip.png)
@@ -80,7 +68,7 @@ To ensure reliable communication and strict isolation, the environment was built
 
 * **Access Restrictions:** Enforced strict Account Expiry and Logon Hour restrictions to mitigate unauthorized access outside business hours.
 
-![Time-Based Access Control - Server Side](screenshots/ad-logon-hours.png)
+![Time-Based Access Control - Server Side](screenshots/ad-logon-hours.png)  
 ![Time-Based Access Control - Client Side](screenshots/client-logon-denied-msg.png)
 > **Figure 2.2: Time-Based Access Control** - Enforcing strict logon hour restrictions within ADUC (Top) and validating the policy enforcement at the client endpoint (Bottom) to mitigate after-hours insider threats.
 
@@ -95,7 +83,7 @@ To ensure reliable communication and strict isolation, the environment was built
 
 * **File Share Hierarchy:** Designed a structured file share hierarchy and managed access strictly via Security Groups rather than individual users to ensure scalable management.
 
-![RBAC Security Groups](screenshots/fs-rbac-groups.png)
+![RBAC Security Groups](screenshots/fs-rbac-groups.png)  
 ![NTFS Permissions](screenshots/fs-ntfs-permissions.png)
 > **Figure 3.1: RBAC & NTFS Permissions** - Implementing Role-Based Access Control (RBAC) by mapping explicit NTFS folder permissions directly to Active Directory Security Groups.
 
@@ -106,7 +94,7 @@ To ensure reliable communication and strict isolation, the environment was built
 
 * **GPO Hardening:** Deployed domain-wide Group Policy Objects (GPOs) to enforce a strict 12-character minimum password policy, 90-day rotations, and a 3-attempt Account Lockout threshold.
 
-![Security Policy Hardening - Password](screenshots/gpo-password-policy.png)
+![Security Policy Hardening - Password](screenshots/gpo-password-policy.png)  
 ![Security Policy Hardening - Lockout](screenshots/gpo-lockout-policy.png)
 > **Figure 3.3: Security Policy Hardening (GPO)** - Deploying domain-wide Group Policy Objects to enforce enterprise-grade password complexity and strict brute-force lockout thresholds.
 
@@ -121,13 +109,13 @@ To ensure reliable communication and strict isolation, the environment was built
 
 * **Advanced Troubleshooting:** Resolved UDP Port 67 conflicts with the co-hosted DHCP server and optimized the TFTP Maximum Block Size to fix packet fragmentation (Error 1460).
 
-![Network Protocol Optimization - DHCP](screenshots/wds-dhcp-conflict-fix.png)
+![Network Protocol Optimization - DHCP](screenshots/wds-dhcp-conflict-fix.png)  
 ![Network Protocol Optimization - TFTP](screenshots/wds-tftp-block-size.png)
 > **Figure 4.2: Network Protocol Optimization** - Resolving UDP Port 67 listening conflicts between DHCP/WDS (Top) and adjusting TFTP Maximum Block Sizes to eliminate virtual packet fragmentation (Bottom).
 
 * **PXE Execution:** Successfully deployed a Windows 10 image to a bare-metal client via PXE network boot.
 
-![Zero-Touch PXE Boot Execution 1](screenshots/wds-pxe-boot-screen.png)
+![Zero-Touch PXE Boot Execution 1](screenshots/wds-pxe-boot-screen.png)  
 ![Zero-Touch PXE Boot Execution 2](screenshots/wds-windows-setup.png)
 > **Figure 4.3: Zero-Touch PXE Boot Execution** - A bare-metal client successfully requesting a DHCP IP, fetching the WDS boot image over the network, and initiating the automated Windows setup environment.
 
@@ -177,3 +165,15 @@ To ensure reliable communication and strict isolation, the environment was built
 
 ![Zero-Touch Data Governance](screenshots/sharepoint-intune-automount.png)
 > **Figure 7.3: Zero-Touch Data Governance** - Leveraging an Intune payload to silently auto-mount secure SharePoint cloud vaults natively within the remote user's File Explorer, eliminating the need for traditional VPNs.
+
+### 7.4 Zero-Touch RMM Deployment (Win32 App Packaging)
+
+*Bridging MDM and RMM for automated endpoint visibility.*
+
+* **Zero-Touch Automation:** Packaged the Action1 agent using the Microsoft Win32 Content Prep Tool (`.intunewin`). Engineered a silent deployment policy within Intune to push the RMM agent over-the-air to all cloud-joined workstations.
+
+![Intune Action1 App Assignment](screenshots/intune-admin-apps.png)
+> **Figure 7.4: Intune App Deployment Configuration** - Configured the Action1 Agent as a required Win32 App in Microsoft Intune, setting silent installation arguments (`/qn`) and ensuring the app pushes automatically to domain-joined devices.
+
+![Action1 Dashboard Managed Endpoints](screenshots/action1-dashboard-devices.png)
+> **Figure 7.5: Action1 RMM Endpoint Discovery** - Successfully verified that the endpoint automatically received the Intune payload, installed the agent in the background, and reported back to the Action1 RMM dashboard as a fully managed device.
