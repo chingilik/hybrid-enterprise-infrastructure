@@ -189,3 +189,17 @@ To ensure reliable communication and strict isolation, the environment was built
 
 ![Action1 Dashboard Managed Endpoints](screenshots/action1-dashboard-devices.png)
 > **Figure 7.5: Action1 RMM Endpoint Discovery** - Successfully verified that the endpoint automatically received the Intune payload, installed the agent in the background, and reported back to the Action1 RMM dashboard as a fully managed device.
+
+## 🌐 8. Remote Access & VPN Administration (RRAS)
+
+*Deploying a secure VPN gateway to allow remote endpoints to tunnel into the corporate network and authenticate against Active Directory.*
+
+* **VPN Gateway Configuration:** Deployed the **Routing and Remote Access Service (RRAS)** role on Windows Server 2022. Configured the server to act as a VPN gateway, managing a dedicated IPv4 address pool to lease internal IP addresses to remote off-site workers.
+* **Active Directory Dial-in Authentication:** Configured Active Directory Dial-in permissions, ensuring that only explicitly authorized users possess the network access rights required to establish a remote tunnel.
+* **Secure Remote File Access:** Successfully provisioned a remote Windows 11 endpoint with the built-in Windows VPN client. Verified that the endpoint could successfully authenticate, receive an internal PPP adapter IP address, and securely access locked-down local AD SMB file shares.
+
+> **🔒 Security Architecture Note (Port Forwarding & Perimeter Defense):**
+> *To simulate the public internet for this lab, I utilized a bridged network adapter (NAT). I intentionally **did not** configure Port Forwarding on my physical home ISP router to expose this VPN Gateway to the actual public internet. Opening raw server ports or utilizing legacy PPTP over the public web is a major security risk vulnerable to brute-force attacks. In a production enterprise environment, this perimeter access would be strictly handled by a dedicated edge firewall (e.g., pfSense, Fortinet) utilizing modern, cryptographically secure VPN protocols (WireGuard/OpenVPN).*
+
+![RRAS VPN Connection](screenshots/RRAS-Connected.png)
+> **Figure 8.1: RRAS VPN Connection** - A remote Windows 11 endpoint successfully establishing a secure tunnel, obtaining a leased IP from the VPN pool, and accessing internal AD file shares.
