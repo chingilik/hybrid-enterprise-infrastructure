@@ -205,3 +205,12 @@ To ensure reliable communication and strict isolation, the environment was built
 
 ![RRAS VPN Connection](screenshots/RRAS-Connected.png)
 > **Figure 8.1: RRAS VPN Connection** - A remote Windows 11 endpoint successfully establishing a secure tunnel, obtaining a leased IP from the VPN pool, and accessing internal AD file shares.
+>
+> ## 🚀 Lab Roadmap & Future Integrations
+
+*Demonstrating a commitment to continuous learning and the adoption of modern, Zero-Trust architectures.*
+
+### ⚡ Upcoming Project: Zero-Trust Overlay Networking (Tailscale)
+> To further modernize the environment's remote access strategy, the next phase of this lab involves deploying a **Tailscale** overlay network. 
+>
+> **The Goal:** To move away from legacy "Inbound" VPN architectures (RRAS) which require risky port-forwarding on the edge firewall. By utilizing an outbound, encrypted **WireGuard** tunnel coordinated via a central control plane, I will enable secure peer-to-peer connectivity for remote workers that is completely invisible to public internet scanning and brute-force attempts.
