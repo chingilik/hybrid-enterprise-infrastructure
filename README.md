@@ -14,12 +14,14 @@
 Building this hybrid environment bridged the gap between theoretical cybersecurity concepts and practical enterprise engineering. By building this architecture from scratch, I developed hands-on proficiency in:
 
 * **Hybrid Identity Management:** Successfully synchronized on-premise Active Directory with Microsoft Entra ID via Entra Connect, mastering seamless Single Sign-On (SSO) and unified identity lifecycles across local and cloud environments.
+* **Secure Remote Access & VPN Administration:** Architected a Virtual Private Network (VPN) gateway using Windows Server RRAS, enabling secure off-site client access to internal Active Directory resources. Deepened understanding of perimeter security, port forwarding risks, and enterprise edge defense.
 * **Zero-Touch Provisioning & Endpoint Management:** Learned to automate hardware lifecycles using both legacy network imaging (WDS/PXE boot) and modern cloud-based MDM (Microsoft Intune), including silent Win32 App packaging for RMM agents.
 * **Security & Infrastructure Hardening:** Gained practical experience enforcing Zero Trust principles through Group Policy Objects (GPO), granular Role-Based Access Control (NTFS permissions), and time-based access restrictions.
 * **PowerShell Automation:** Replaced manual, error-prone administrative tasks with PowerShell scripting, significantly reducing provisioning times by automating bulk HR data ingestion and account creation.
 * **Platform-Agnostic SaaS Administration:** Broadened cloud administration skills by configuring and securing both Microsoft 365 and Google Workspace tenants, mastering email routing, aliases, and collaborative access boundaries.
 
 ---
+
 
 ## 🚀 Project Overview
 
