@@ -22,7 +22,6 @@ Building this hybrid environment bridged the gap between theoretical cybersecuri
 
 ---
 
-
 ## 🚀 Project Overview
 
 This repository serves as documented proof of my hands-on proficiency in Systems Administration and Infrastructure Engineering. I engineered this comprehensive environment from the ground up to bridge the gap between formal Cybersecurity education and modern enterprise architecture.
@@ -45,7 +44,7 @@ To ensure reliable communication and strict isolation, the environment was built
 * **Identity & Cloud:** Active Directory (AD DS), Microsoft 365, Google Workspace, Microsoft Entra ID
 * **Endpoint Provisioning:** Microsoft Intune (MDM), WDS (PXE Boot)
 * **Network & Security:** DHCP, DNS, MX/SPF/DMARC, Group Policy (GPO), NTFS/RBAC
-* **Automation:** PowerShell (Bulk Provisioning)
+* **Automation:** PowerShell (Bulk Provisioning), Action1 (RMM)
 * **Data Governance:** SharePoint Online, OneDrive, Intune Settings Catalog
 
 ## 🏗️ 1. Infrastructure Implementation & Networking
@@ -161,7 +160,7 @@ To ensure reliable communication and strict isolation, the environment was built
 ![Collaborative Access Control](screenshots/gws-admin-console-groups.png)
 > **Figure 6.2: Collaborative Access Control** - Engineering Google Groups to act as centralized security boundaries for RBAC across enterprise Shared Drives.
 
-## 📱 7. Modern Endpoint Management (Intune)
+## 📱 7. Modern Endpoint Management (Intune & RMM)
 
 *Implementing Zero-Touch deployment and MDM policy enforcement.*
 
@@ -192,7 +191,7 @@ To ensure reliable communication and strict isolation, the environment was built
 ![Action1 Dashboard Managed Endpoints](screenshots/action1-dashboard-devices.png)
 > **Figure 7.5: Action1 RMM Endpoint Discovery** - Successfully verified that the endpoint automatically received the Intune payload, installed the agent in the background, and reported back to the Action1 RMM dashboard as a fully managed device.
 
-## 🌐 8. Remote Access & VPN Administration (RRAS)
+## 🌐 8. Legacy Remote Access (RRAS VPN Gateway)
 
 *Deploying a secure VPN gateway to allow remote endpoints to tunnel into the corporate network and authenticate against Active Directory.*
 
@@ -205,12 +204,25 @@ To ensure reliable communication and strict isolation, the environment was built
 
 ![RRAS VPN Connection](screenshots/RRAS-Connected.png)
 > **Figure 8.1: RRAS VPN Connection** - A remote Windows 11 endpoint successfully establishing a secure tunnel, obtaining a leased IP from the VPN pool, and accessing internal AD file shares.
->
-> ## 🚀 Lab Roadmap & Future Integrations
 
-*Demonstrating a commitment to continuous learning and the adoption of modern, Zero-Trust architectures.*
+## 🚀 9. Modern Zero-Trust Overlay Network (Tailscale)
 
-### ⚡ Upcoming Project: Zero-Trust Overlay Networking (Tailscale)
-> To further modernize the environment's remote access strategy, the next phase of this lab involves deploying a **Tailscale** overlay network. 
+*Migrating from legacy inbound VPN architectures to an outbound, cryptographically secure overlay network utilizing WireGuard.*
+
+* **Infrastructure Gateway:** Deployed the Tailscale agent natively on the Windows Server 2022 Domain Controller, binding it to the `100.x.x.x` overlay network to act as a secure internal gateway without opening inbound edge firewall ports.
+* **Zero-Touch RMM Deployment:** Engineered a PowerShell payload utilizing Tailscale's pre-authorized Auth Keys. Using the **Action1 RMM**, I successfully pushed this payload silently over-the-air to the remote Windows 11 endpoint. 
+* **Execution & Verification:** The script downloaded the installer, executed it in the background (`/quiet`), and injected the Auth Key, immediately binding the endpoint to the secure network. The remote endpoint successfully resolved and pinged the internal Domain Controller over the Zero-Trust tunnel without any end-user interaction.
+
+![Zero-Touch Tailscale Deployment](screenshots/action1-zerotouch-vpn.png)
+> **Figure 9.1: Zero-Touch VPN Automation** - Demonstrating the successful over-the-air deployment of the Tailscale agent via Action1 (Left) and the resulting silent authentication and internal network routing on the client endpoint (Right).
+
+---
+
+## 🔮 Lab Roadmap & Future Integrations
+
+*Demonstrating a commitment to continuous learning and proactive security defense.*
+
+### ⚡ Upcoming Project: Enterprise SIEM & EDR Deployment (Wazuh)
+> To expand this environment into active security operations, the next phase involves spinning up a dedicated Ubuntu Linux host to serve as a **Wazuh SIEM (Security Information and Event Management)** server. 
 >
-> **The Goal:** To move away from legacy "Inbound" VPN architectures (RRAS) which require risky port-forwarding on the edge firewall. By utilizing an outbound, encrypted **WireGuard** tunnel coordinated via a central control plane, I will enable secure peer-to-peer connectivity for remote workers that is completely invisible to public internet scanning and brute-force attempts.
+> **The Goal:** Deploy Wazuh EDR agents to the Windows Server infrastructure to centralize security event logs. I will configure File Integrity Monitoring (FIM) and actively hunt for simulated brute-force authentication attacks against Active Directory, pivoting this portfolio from purely building infrastructure to actively defending it.
