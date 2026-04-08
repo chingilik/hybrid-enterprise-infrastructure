@@ -14,11 +14,12 @@
 Building this hybrid environment bridged the gap between theoretical cybersecurity concepts and practical enterprise engineering. By building this architecture from scratch, I developed hands-on proficiency in:
 
 * **Hybrid Identity Management:** Successfully synchronized on-premise Active Directory with Microsoft Entra ID via Entra Connect, mastering seamless Single Sign-On (SSO) and unified identity lifecycles across local and cloud environments.
-* **Secure Remote Access & VPN Administration:** Architected a Virtual Private Network (VPN) gateway using Windows Server RRAS, enabling secure off-site client access to internal Active Directory resources. Deepened understanding of perimeter security, port forwarding risks, and enterprise edge defense.
-* **Zero-Touch Provisioning & Endpoint Management:** Learned to automate hardware lifecycles using both legacy network imaging (WDS/PXE boot) and modern cloud-based MDM (Microsoft Intune), including silent Win32 App packaging for RMM agents.
+* **Secure Remote Access & Zero-Trust Networking:** Architected secure remote access solutions ranging from legacy inbound VPN gateways (Windows Server RRAS) to modern, cryptographically secure **Zero-Trust Overlay Networks (Tailscale/WireGuard)**. Successfully eliminated edge firewall port-forwarding risks and hid internal infrastructure from public internet scanning.
+* **Zero-Touch Provisioning & Endpoint Management:** Mastered endpoint lifecycle management through bare-metal imaging (WDS/PXE boot), cloud-based MDM (Microsoft Intune), and **Zero-Touch RMM automation (Action1)**. Successfully engineered and deployed silent PowerShell payloads and pre-authorized authentication keys over-the-air.
 * **Security & Infrastructure Hardening:** Gained practical experience enforcing Zero Trust principles through Group Policy Objects (GPO), granular Role-Based Access Control (NTFS permissions), and time-based access restrictions.
-* **PowerShell Automation:** Replaced manual, error-prone administrative tasks with PowerShell scripting, significantly reducing provisioning times by automating bulk HR data ingestion and account creation.
+* **PowerShell Automation:** Replaced manual, error-prone administrative tasks with PowerShell scripting, significantly reducing provisioning times by automating bulk HR data ingestion, account creation, and silent background software deployments.
 * **Platform-Agnostic SaaS Administration:** Broadened cloud administration skills by configuring and securing both Microsoft 365 and Google Workspace tenants, mastering email routing, aliases, and collaborative access boundaries.
+* **Foundation for Security Operations (SecOps):** Engineered this entire infrastructure with visibility in mind, designing it to act as the primary target environment for my active Blue Team threat-hunting and SIEM/EDR monitoring operations.
 
 ---
 
@@ -218,11 +219,11 @@ To ensure reliable communication and strict isolation, the environment was built
 
 ---
 
-## 🔮 Lab Roadmap & Future Integrations
+## 🛡️ Enterprise Security Operations & Threat Hunting
 
-*Demonstrating a commitment to continuous learning and proactive security defense.*
+*This infrastructure serves as the foundational environment for my continuous learning in cybersecurity. To see how I actively monitor, defend, and threat-hunt within this exact environment, please visit my dedicated Security Operations repository.*
 
-### ⚡ Upcoming Project: Enterprise SIEM & EDR Deployment (Wazuh)
-> To expand this environment into active security operations, the next phase involves spinning up a dedicated Ubuntu Linux host to serve as a **Wazuh SIEM (Security Information and Event Management)** server. 
+### ⚡ [View the Enterprise Security Operations (Wazuh SIEM & EDR) Repository](https://github.com/chingilik/enterprise-security-operations)
+> I have expanded this architecture into a fully monitored, active security environment documented in a separate repository. 
 >
-> **The Goal:** Deploy Wazuh EDR agents to the Windows Server infrastructure to centralize security event logs. I will configure File Integrity Monitoring (FIM) and actively hunt for simulated brute-force authentication attacks against Active Directory, pivoting this portfolio from purely building infrastructure to actively defending it.
+> **The Mission:** Deployed a dedicated Ubuntu Linux host acting as a centralized **Wazuh SIEM** server. By pushing Wazuh EDR agents to the Windows Server infrastructure, I centralized security event logs, configured File Integrity Monitoring (FIM), and actively hunted for simulated brute-force authentication attacks against Active Directory. This marks the transition from purely building infrastructure to actively defending it.
